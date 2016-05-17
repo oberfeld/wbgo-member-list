@@ -11,10 +11,12 @@ import {MemberList} from './components/member-list/member-list';
   templateUrl: 'app/member-app.html',
 })
 @RouteConfig([
-  { path: '/list',      component: MemberList,       name: 'List', useAsDefault: true  },
+  { path: '/list',      
+    component: MemberList,       
+    name: 'List', 
+    useAsDefault: true  }
 ])
+
 export class AppRoot {
-
   constructor() {}
-
 }
