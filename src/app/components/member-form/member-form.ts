@@ -5,7 +5,6 @@ import {MemberService} from '../../services/members';
 @Component({
     selector: 'member-form',
     directives: [FORM_DIRECTIVES],
-    providers: [ MemberService ],
     template: `  
   <div class="ui raised segment">  
     <h2 class="ui header">Member Form</h2>  

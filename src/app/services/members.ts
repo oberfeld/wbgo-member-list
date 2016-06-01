@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Http, URLSearchParams} from '@angular/http';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
-import {from} from 'rxjs/observable/from';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {merge} from 'rxjs/operator/merge';
 
 export interface Member {
     name: string;
@@ -14,39 +12,40 @@ export interface Member {
 export class MemberService {
 
     members$:BehaviorSubject<Member[]> = new BehaviorSubject<Member[]>([]);
-    private members:Member[] = [];
+
 
     constructor(private http:Http) {
-        this.members$.next([]);
+        this.members$.next([
+            {name: "Peter"},
+            {name: "Christina"}
+        ]);
     }
 
-    getMembers() {
-        return this.makeRequest();
+    getMembers():Observable<Member[]> {
+        return this.members$;
     }
+
 
     addMember(member) {
-        this.members.push(member);
+        this.members$.next(this.members$.getValue().concat([member]));
     }
 
-    private makeRequest():Observable<Member[]> {
-        return merge(from(
-            [[
-                {name: "Peter"},
-                {name: "Christina"}
-            ]])
-            .map(this._save)
-        );
-        //
-        // let params = new URLSearchParams();
-        // params.set('per_page', '100');
-        //
-        // let url = `/members`;
-        // return this.http.get(url, {search: params})
-        //     .map((res) => res.json());
-    }
-
-    _save = (members: Member[]): Member[] => {
-        this.members = members;
-        return members;
-    }
+    // private makeRequest():Observable<Member[]> {
+    //     return merge(from(
+    //         [])
+    //         .map(this._save)
+    //     );
+    //     //
+    //     // let params = new URLSearchParams();
+    //     // params.set('per_page', '100');
+    //     //
+    //     // let url = `/members`;
+    //     // return this.http.get(url, {search: params})
+    //     //     .map((res) => res.json());
+    // }
+    //
+    // _save = (members: Member[]): Member[] => {
+    //     this.members = members;
+    //     return members;
+    // }
 }

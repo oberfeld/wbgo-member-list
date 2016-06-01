@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MemberService} from '../../services/members';
+import {MemberService, Member} from '../../services/members';
 import {Observable} from 'rxjs/Observable';
 import {RouteParams, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {MemberForm} from "../member-form/member-form";
@@ -12,13 +12,13 @@ import {MemberForm} from "../member-form/member-form";
   pipes: []
 })
 export class MemberList {
-  members: Observable<any>;
+  public members: Observable<Member[]>;
   
   constructor(
-      public memberService: MemberService,
+      public MemberService: MemberService,
       public params: RouteParams) {}
 
   ngOnInit() {
-    this.members = this.memberService.getMembers();
+    this.members = this.MemberService.getMembers();
   }
 }
